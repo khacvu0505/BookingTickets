@@ -1,8 +1,11 @@
-const { Router } = require("express");
-const StationRouter = Router();
+const express = require("express");
+const StationRouter = express.Router();
+const {
+  getListStation,
+  createStation,
+} = require("../controllers/StationController");
 
-StationRouter.use("/", () => {
-  console.log("hello");
-});
+StationRouter.get("/", getListStation);
+StationRouter.post("/", createStation);
 
 module.exports = StationRouter;

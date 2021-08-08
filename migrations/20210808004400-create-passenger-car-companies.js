@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         // *** Định nghĩa khóa phụ
         references: {
-          model: "trips",
+          model: "Trips",
           key: "id",
         },
       },

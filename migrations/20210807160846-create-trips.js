@@ -16,7 +16,7 @@ module.exports = {
         //***  Định nghĩa khóa phụ
         references: {
           // model: Tên bảng trong sql
-          model: "stations",
+          model: "Stations",
           // key chỗ này là key liên kết trong mysql
           key: "id",
         },
@@ -25,7 +25,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           // model: Tên bảng trong sql
-          model: "stations",
+          model: "Stations",
           // key chỗ này là key liên kết trong mysql
           key: "id",
         },

@@ -14,7 +14,7 @@ module.exports = {
       passengerCarCompanyId: {
         type: Sequelize.INTEGER,
         references: {
-          model: "passengercarcompanies",
+          model: "PassengerCarCompanies",
           key: "id",
         },
       },
