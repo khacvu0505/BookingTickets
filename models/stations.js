@@ -10,11 +10,15 @@ module.exports = (sequelize, DataTypes) => {
     // Hàm này sẽ chịu trách nhiệm liên kết các bảng lại với nhau
     static associate({ Trips }) {
       // define association here
+      // this.hasMany(Trips, {
+      //   foreignKey: "fromStation",
+      //   as: "fromStation_Info",
+      // });
+      // this.hasMany(Trips, { foreignKey: "toStation", as: "toStation_Info" });
       this.hasMany(Trips, {
         foreignKey: "fromStation",
-        as: "fromStation_Info",
       });
-      this.hasMany(Trips, { foreignKey: "toStation", as: "toStation_Info" });
+      this.hasMany(Trips, { foreignKey: "toStation" });
     }
   }
   Stations.init(
