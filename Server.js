@@ -14,7 +14,7 @@ app.use("/api/v1", rootRouter);
 const publicPathDirectory = path.join(__dirname, "./public");
 app.use("/public", express.static(publicPathDirectory));
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, async () => {
   try {
     await sequelize.authenticate();
