@@ -8,7 +8,7 @@ const rootRouter = require("./routers/IndexRouter");
 app.use(express.json());
 
 // ROUTER
-app.use("/api/v1", rootRouter);
+app.use("/api/v1/", rootRouter);
 
 // Setup Static File
 const publicPathDirectory = path.join(__dirname, "./public");

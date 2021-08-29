@@ -1,4 +1,9 @@
 const express = require("express");
+
+const {
+  ShowError,
+  CheckNull,
+} = require("../middlewares/validations/Validations");
 const StationRouter = express.Router();
 const {
   getListStation,
@@ -6,6 +11,11 @@ const {
 } = require("../controllers/StationController");
 
 StationRouter.get("/", getListStation);
-StationRouter.post("/", createStation);
+StationRouter.post(
+  "/",
+  CheckNull(["name", "address", "province"]),
+  ShowError,
+  createStation
+);
 
 module.exports = StationRouter;

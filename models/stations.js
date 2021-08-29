@@ -23,11 +23,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
+          notEmpty: {
+            args: false,
+            msg: "Name Station not null",
+          },
           len: {
             args: [5, 100],
-            msg: "Tên bến xe phải từ 5-100 ký tự",
+            msg: "Name Station has length 5-100 characters ",
           },
-          notEmpty: true,
         },
       },
       address: DataTypes.STRING,

@@ -1,12 +1,29 @@
 const { Stations } = require("../models");
+const { Op } = require("sequelize");
+
+// List All Station
 const getListStation = async (req, res) => {
-  const listStation = await Stations.findAll();
-  if (listStation.length > 0) {
+  const { name } = req.query;
+  let listStation = [];
+  try {
+    if (name) {
+      listStation = await Stations.findAll({
+        where: {
+          name: {
+            [Op.like]: `%${name}%`,
+          },
+        },
+      });
+    } else {
+      listStation = await Stations.findAll();
+    }
     res.status(200).send(listStation);
-  } else {
-    res.status(200).send("Chưa có bến xe");
+  } catch (error) {
+    res.status(500).send(error);
   }
 };
+
+// Add new Station
 const createStation = async (req, res) => {
   const { name, address, province } = req.body;
   try {
