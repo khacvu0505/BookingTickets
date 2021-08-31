@@ -9,10 +9,19 @@ const ShowError = (req, res, next) => {
     next();
   }
 };
-const CheckNull = (data) => {
-  let arrError = data.map((item) =>
-    check(item, `${item} does not Empty`).not().isEmpty()
-  );
-  return arrError;
+const CheckNull = (data) =>
+  data.map((item) => check(item, `${item} does not Empty`).not().isEmpty());
+const CheckExit = (Model) => async (req, res, next) => {
+  const { id } = req.params;
+  const check = await Model.findOne({
+    where: {
+      id,
+    },
+  });
+  if (check) {
+    next();
+  } else {
+    return res.status(404).send(`Not Found ID:  ${id}`);
+  }
 };
-module.exports = { ShowError, CheckNull };
+module.exports = { ShowError, CheckNull, CheckExit };

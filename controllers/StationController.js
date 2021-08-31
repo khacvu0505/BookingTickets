@@ -2,7 +2,7 @@ const { Stations } = require("../models");
 const { Op } = require("sequelize");
 
 // List All Station
-const getListStation = async (req, res) => {
+const GetListStation = async (req, res) => {
   const { name } = req.query;
   let listStation = [];
   try {
@@ -23,18 +23,55 @@ const getListStation = async (req, res) => {
   }
 };
 
-// Add new Station
-const createStation = async (req, res) => {
+// Create or Update Station
+const CreateOrUpdateStation = async (req, res) => {
   const { name, address, province } = req.body;
+  const { id } = req.params;
   try {
-    const newStation = await Stations.create({ name, address, province });
-    res.status(201).send(newStation);
+    if (id) {
+      await Stations.update(req.body, { where: { id } });
+      const newValueUpdate = await Stations.findOne({ where: { id } });
+      res.status(200).send({ status: "Updated", data: newValueUpdate });
+    } else {
+      const newStation = await Stations.create({ name, address, province });
+      res.status(201).send(newStation);
+    }
   } catch (error) {
     res.status(500).send(error);
   }
 };
 
+// Get Detail Stations
+const GetDetailStation = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const detailStation = await Stations.findOne({
+      where: {
+        id,
+      },
+    });
+    if (detailStation) {
+      res.status(200).send(detailStation);
+      return detailStation;
+    } else {
+      res.status(200).send("Not Found");
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+// Delete Station
+const DeleteStation = async (req, res) => {
+  const { id } = req.params;
+  const data = await Stations.findOne({ where: { id } });
+  console.log(data);
+  await Stations.destroy({ where: { id } });
+};
+
 module.exports = {
-  getListStation,
-  createStation,
+  GetListStation,
+  CreateOrUpdateStation,
+  GetDetailStation,
+  DeleteStation,
 };
