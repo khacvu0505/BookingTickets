@@ -64,9 +64,13 @@ const GetDetailStation = async (req, res) => {
 // Delete Station
 const DeleteStation = async (req, res) => {
   const { id } = req.params;
-  const data = await Stations.findOne({ where: { id } });
-  console.log(data);
-  await Stations.destroy({ where: { id } });
+  try {
+    const data = await Stations.findOne({ where: { id } });
+    await Stations.destroy({ where: { id } });
+    res.status(200).send({ status: "Delete Success", data });
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 
 module.exports = {
