@@ -153,7 +153,7 @@ const UserLogin = async (req, res) => {
 const UploadAvatar = async (req, res) => {
   const { file } = req;
   const { id } = req.params;
-  const publicFile = `https://v-bookingtickets.herokuapp.com/${file.path}`;
+  const publicFile = `http://v-bookingtickets.herokuapp.com/${file.path}`;
 
   try {
     await Users.update(
