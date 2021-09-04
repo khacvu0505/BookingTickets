@@ -133,7 +133,7 @@ const UserLogin = async (req, res) => {
   if (isAuth) {
     let token = jwt.sign(
       {
-        data: { name: user.name, type: user.type },
+        data: { name: user.name, type: user.type, email: user.email },
       },
       "khacvu0505",
       { expiresIn: "8h" }
@@ -149,10 +149,36 @@ const UserLogin = async (req, res) => {
   }
 };
 
+// Upload Avatar
+const UploadAvatar = async (req, res) => {
+  const { file } = req;
+  const { id } = req.params;
+  const publicFile = `https://v-bookingtickets.herokuapp.com/${file.path}`;
+
+  try {
+    await Users.update(
+      { avatar: publicFile },
+      {
+        where: { id },
+      }
+    );
+    const upload = await Users.findOne({
+      where: { id },
+      attributes: {
+        exclude: ["password", "createdAt", "updatedAt"],
+      },
+    });
+    res.status(200).send({ message: "Updated", data: upload });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 module.exports = {
   CreateOrUpdateUser,
   GetListAllUser,
   GetDetailUser,
   DeleteUser,
   UserLogin,
+  UploadAvatar,
 };

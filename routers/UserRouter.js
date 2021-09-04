@@ -7,12 +7,15 @@ const {
   GetDetailUser,
   DeleteUser,
   UserLogin,
+  UploadAvatar,
 } = require("../controllers/UserController");
 const {
   ShowError,
   CheckNull,
   CheckExit,
 } = require("../middlewares/validations/Validations");
+// *** Upload Images
+const { UploadImage } = require("../middlewares/uploads/UploadImage");
 
 const { Authenticate } = require("../middlewares/auth/Authenticate");
 const { Authorize } = require("../middlewares/auth/Authorize");
@@ -33,9 +36,9 @@ UserRouter.post(
 // Get List All User
 UserRouter.get(
   "/",
-  Authenticate,
-  Authorize(["admin"]),
-  CheckTokenExpiration,
+  // Authenticate,
+  // Authorize(["admin"]),
+  // CheckTokenExpiration,
   GetListAllUser
 );
 
@@ -62,5 +65,8 @@ UserRouter.delete(
 
 //Login
 UserRouter.post("/login", UserLogin);
+
+// User Upload Avatar
+UserRouter.put("/upload/avatar/:id", Authenticate, UploadImage(), UploadAvatar);
 
 module.exports = UserRouter;
