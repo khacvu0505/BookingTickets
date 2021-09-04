@@ -36,9 +36,9 @@ UserRouter.post(
 // Get List All User
 UserRouter.get(
   "/",
-  // Authenticate,
-  // Authorize(["admin"]),
-  // CheckTokenExpiration,
+  Authenticate,
+  Authorize(["admin"]),
+  CheckTokenExpiration,
   GetListAllUser
 );
 
@@ -51,6 +51,7 @@ UserRouter.put(
   Authenticate,
   Authorize(["admin"]),
   CheckTokenExpiration,
+  CheckExit(Users),
   CreateOrUpdateUser
 );
 
@@ -60,6 +61,7 @@ UserRouter.delete(
   Authenticate,
   Authorize(["admin"]),
   CheckTokenExpiration,
+  CheckExit(Users),
   DeleteUser
 );
 
@@ -67,6 +69,11 @@ UserRouter.delete(
 UserRouter.post("/login", UserLogin);
 
 // User Upload Avatar
-UserRouter.put("/upload/avatar/:id", Authenticate, UploadImage(), UploadAvatar);
+UserRouter.put(
+  "/upload/avatar/:id",
+  Authenticate,
+  UploadImage("avatar"),
+  UploadAvatar
+);
 
 module.exports = UserRouter;
