@@ -1,27 +1,16 @@
-var jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const Authenticate = (req, res, next) => {
-  // const token = jwt.sign({ foo: "bar" }, "khacvu0505");
-  // jwt.sign(
-  //   {
-  //     data: "foobar",
-  //   },
-  //   "khacvu0505",
-  //   { expiresIn: "1h" }
-  // );
-
   try {
-    const token = jwt.sign(
-      { foo: "bar" },
-      "khacvu0505",
-      { algorithm: "RS256" },
-      { expiresIn: "1h" }
-    );
+    const { token } = req.headers;
     const decoded = jwt.verify(token, "khacvu0505");
     if (decoded) {
+      req.user = decoded;
       next();
+    } else {
+      res.status(400).send({ message: "You aren't login " });
     }
   } catch (error) {
-    res.status(403).send("Permission Deny");
+    res.status(400).send({ message: "You aren't login " });
   }
 };
-module.exports = Authenticate;
+module.exports = { Authenticate };

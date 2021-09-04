@@ -21,7 +21,7 @@ const CheckExit = (Model) => async (req, res, next) => {
   if (check) {
     next();
   } else {
-    return res.status(404).send(`Not Found ID:  ${id}`);
+    return res.status(404).send({ message: `Not Found ID: ${id}` });
   }
 };
 module.exports = { ShowError, CheckNull, CheckExit };
