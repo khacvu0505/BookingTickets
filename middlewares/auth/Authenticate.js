@@ -7,10 +7,10 @@ const Authenticate = (req, res, next) => {
       req.user = decoded;
       next();
     } else {
-      res.status(400).send({ message: "You aren't login " });
+      res.status(401).send({ message: "You aren't login " });
     }
   } catch (error) {
-    res.status(400).send({ message: "You aren't login " });
+    res.status(error).send({ message: "You aren't login " });
   }
 };
 module.exports = { Authenticate };

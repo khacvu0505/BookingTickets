@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const moment = require("moment");
 module.exports = (sequelize, DataTypes) => {
   class Trips extends Model {
     /**
@@ -12,10 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(Stations, {
         foreignKey: "fromStation",
         as: "fromStation_Info",
+        onDelete: "SET NULL",
+        // hooks: true,
       });
       this.belongsTo(Stations, {
         foreignKey: "toStation",
         as: "toStation_Info",
+        onDelete: "SET NULL",
+        // hooks: true,
       });
 
       // Many to Main()Ralation to Tickets
@@ -27,7 +32,19 @@ module.exports = (sequelize, DataTypes) => {
   }
   Trips.init(
     {
-      startTime: DataTypes.DATE,
+      startTime: {
+        type: DataTypes.DATE,
+        get: function () {
+          let time = this.getDataValue("startTime");
+          if (moment(time, moment.ISO_8601, true).isValid()) {
+            return moment(this.getDataValue("startTime")).format(
+              "YYYY-MM-DD HH:mm:ss"
+            );
+          } else {
+            return time;
+          }
+        },
+      },
       price: DataTypes.FLOAT,
     },
     {

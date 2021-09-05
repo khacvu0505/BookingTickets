@@ -13,8 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(Trips, {
         foreignKey: "fromStation",
         as: "fromStation_Info",
+        onDelete: "CASCADE",
+        hooks: true,
       });
-      this.hasMany(Trips, { foreignKey: "toStation", as: "toStation_Info" });
+      this.hasMany(Trips, {
+        foreignKey: "toStation",
+        as: "toStation_Info",
+        onDelete: "CASCADE",
+        hooks: true,
+      });
     }
   }
   Stations.init(

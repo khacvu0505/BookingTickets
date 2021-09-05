@@ -13,6 +13,7 @@ const {
   ShowError,
   CheckNull,
   CheckExit,
+  checkEmail,
 } = require("../middlewares/validations/Validations");
 // *** Upload Images
 const { UploadImage } = require("../middlewares/uploads/UploadImage");
@@ -29,6 +30,7 @@ UserRouter.post(
   Authorize(["admin"]),
   CheckTokenExpiration,
   CheckNull(["name", "numberPhone", "email", "password"]),
+  checkEmail(),
   ShowError,
   CreateOrUpdateUser
 );
