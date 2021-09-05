@@ -20,6 +20,7 @@ module.exports = {
           // key chỗ này là key liên kết trong mysql
           key: "id",
         },
+        onDelete: "CASCADE",
       },
       toStation: {
         type: Sequelize.INTEGER,
@@ -29,6 +30,7 @@ module.exports = {
           // key chỗ này là key liên kết trong mysql
           key: "id",
         },
+        onDelete: "CASCADE",
       },
       price: {
         type: Sequelize.FLOAT,
