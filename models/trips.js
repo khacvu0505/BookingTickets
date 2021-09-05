@@ -13,13 +13,13 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(Stations, {
         foreignKey: "fromStation",
         as: "fromStation_Info",
-        onDelete: "SET NULL",
+        // onDelete: "CASCADE",
         // hooks: true,
       });
       this.belongsTo(Stations, {
         foreignKey: "toStation",
         as: "toStation_Info",
-        onDelete: "SET NULL",
+        // onDelete: "CASCADE",
         // hooks: true,
       });
 

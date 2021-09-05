@@ -10,7 +10,7 @@ const Authenticate = (req, res, next) => {
       res.status(401).send({ message: "You aren't login " });
     }
   } catch (error) {
-    res.status(error).send({ message: "You aren't login " });
+    res.status(401).send({ message: "You aren't login " });
   }
 };
 module.exports = { Authenticate };
