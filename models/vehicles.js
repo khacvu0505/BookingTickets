@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "passengerCarCompony_id",
       });
       // Relation to Seats
-      this.hasMany(Seats, { foreignKey: "vehicle_id" });
+      this.hasMany(Seats, { foreignKey: "vehicle_id", onDelete: "CASCADE" });
     }
   }
   Vehicles.init(

@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       // Ralation to Trips
       this.belongsTo(Trips);
       // Relation to Vehicles
-      this.hasMany(Vehicles);
+      this.hasMany(Vehicles, { onDelete: "CASCADE" });
     }
   }
   PassengerCarCompanies.init(

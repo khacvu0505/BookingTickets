@@ -14,12 +14,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "fromStation",
         as: "fromStation_Info",
         onDelete: "CASCADE",
+        onUpdate: "CASCADE",
         hooks: true,
       });
       this.hasMany(Trips, {
         foreignKey: "toStation",
         as: "toStation_Info",
         onDelete: "CASCADE",
+        onUpdate: "CASCADE",
         hooks: true,
       });
     }

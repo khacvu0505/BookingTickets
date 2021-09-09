@@ -21,6 +21,7 @@ module.exports = {
           key: "id",
         },
         onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       toStation: {
         type: Sequelize.INTEGER,
@@ -31,6 +32,7 @@ module.exports = {
           key: "id",
         },
         onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       price: {
         type: Sequelize.FLOAT,

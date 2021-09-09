@@ -11,7 +11,11 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsToMany(Users, { through: Tickets, as: "ticket_info" });
       // Many to Main
-      this.hasMany(Tickets);
+      this.hasMany(Tickets, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        hooks: true,
+      });
     }
   }
   Users.init(

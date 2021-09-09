@@ -24,10 +24,13 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       // Many to Main()Ralation to Tickets
-      this.belongsToMany(Users, { through: Tickets, as: "ticket_info" });
-      this.hasMany(Tickets);
+      this.belongsToMany(Users, {
+        through: Tickets,
+        as: "ticket_info",
+      });
+      this.hasMany(Tickets, { onDelete: "CASCADE" });
       // Ralation to PassengerCarComponies
-      this.hasMany(PassengerCarCompanies);
+      this.hasMany(PassengerCarCompanies, { onDelete: "CASCADE" });
     }
   }
   Trips.init(
