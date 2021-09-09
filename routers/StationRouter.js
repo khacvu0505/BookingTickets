@@ -26,9 +26,9 @@ StationRouter.get("/", GetListStation);
 // Create Station
 StationRouter.post(
   "/",
-  // Authenticate,
-  // Authorize(["admin"]),
-  // CheckTokenExpiration,
+  Authenticate,
+  Authorize(["admin"]),
+  CheckTokenExpiration,
   CheckNull(["name", "address", "province"]),
   ShowError,
   CreateOrUpdateStation

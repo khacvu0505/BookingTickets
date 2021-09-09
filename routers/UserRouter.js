@@ -15,20 +15,21 @@ const {
   CheckExit,
   checkEmail,
 } = require("../middlewares/validations/Validations");
-// *** Upload Images
-const { UploadImage } = require("../middlewares/uploads/UploadImage");
 
 const { Authenticate } = require("../middlewares/auth/Authenticate");
 const { Authorize } = require("../middlewares/auth/Authorize");
 const {
   CheckTokenExpiration,
 } = require("../middlewares/auth/CheckTokenExpiration");
+// *** Upload Images
+const { UploadImage } = require("../middlewares/uploads/UploadImage");
+
 // Add User
 UserRouter.post(
   "/",
-  Authenticate,
-  Authorize(["admin"]),
-  CheckTokenExpiration,
+  // Authenticate,
+  // Authorize(["admin"]),
+  // CheckTokenExpiration,
   CheckNull(["name", "numberPhone", "email", "password"]),
   checkEmail(),
   ShowError,
@@ -71,8 +72,8 @@ UserRouter.delete(
 UserRouter.post("/login", UserLogin);
 
 // User Upload Avatar
-UserRouter.put(
-  "/upload/avatar/:id",
+UserRouter.post(
+  "/upload/avatar",
   Authenticate,
   UploadImage("avatar"),
   UploadAvatar

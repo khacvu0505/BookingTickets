@@ -4,6 +4,8 @@ const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { SearchAllAttributes } = require("../components/SearchAllAttributes");
+const cloudinary = require("../middlewares/uploads/Cloudinary");
+var fs = require("fs");
 
 // Create Or Update User
 const CreateOrUpdateUser = async (req, res) => {
@@ -151,24 +153,20 @@ const UserLogin = async (req, res) => {
 
 // Upload Avatar
 const UploadAvatar = async (req, res) => {
-  const { file } = req;
-  const { id } = req.params;
-  const publicFile = `https://v-bookingtickets.herokuapp.com/${file.path}`;
-
+  const uploader = async (path) => await cloudinary.uploads(path, "Avatar");
+  const { file, user } = req;
+  const newPath = await uploader(file.path);
+  fs.unlinkSync(file.path);
   try {
-    await Users.update(
-      { avatar: publicFile },
-      {
-        where: { id },
-      }
-    );
-    const upload = await Users.findOne({
-      where: { id },
+    const data = await Users.findOne({
+      where: { email: user.data.email },
       attributes: {
         exclude: ["password", "createdAt", "updatedAt"],
       },
     });
-    res.status(200).send({ message: "Updated", data: upload });
+    data.avatar = newPath.url;
+    await data.save();
+    res.status(200).send({ message: "Success", data });
   } catch (error) {
     res.status(500).send(error);
   }
