@@ -9,7 +9,7 @@ Tickets,
 Trips,
 Vehicles,
 PassengerCarCompanies,
-Seats,
+Seats
 
 Mô tả chính: Cho phép người dùng tìm chuyến đi, đặt vé xe, lịch sử, quản lý thông tin các models ...
 
